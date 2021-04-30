@@ -33,8 +33,6 @@ const pushedMessage = request.body;
 });
 
 
-
-
 //delete
 app.delete("/message/:id", (request, respond)=>{
 const messageId = request.params.id; 
@@ -62,6 +60,17 @@ app.get("/message/search", (request, response) => {
   response.json(messageFiltered);
 });
 
+ 
+//Read only the most recent 10 messages: `/messages/latest`
+app.get("/message/read", (request, response) => {
+   let readMessages;
+   if (messages.length <= 10){
+     readMessages = messages
+   } else {
+     readMessages = messages.slice(messages.length -10);
+   }  response.json(readMessages);
+  
+});
 
 //searching by ID
 app.get("/message/:id", (request, response) => {
