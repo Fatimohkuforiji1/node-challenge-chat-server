@@ -21,12 +21,6 @@ const welcomeMessage = {
 //Note: messages will be lost when Glitch restarts our server.
 const messages = [welcomeMessage];
 
-
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + "/index.html");
-  response.json(messages);
-});
-
 app.post("/message", function (request, response) {
 const pushedMessage = request.body;
   if(!(pushedMessage.hasOwnProperty('from')) ||
@@ -52,7 +46,10 @@ const messageIndex = messages.findIndex((element)=>{
   respond.send("Ready");
 });
 
-
+app.get("/", function (request, response) {
+  response.sendFile(__dirname + "/index.html");
+  response.json(messages);
+});
 
 //allow client read text 
 app.get("/message/search", (request, response) => {
