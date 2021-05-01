@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const { static } = require("express");
 
 const PORT = process.env.PORT || 4001
 const app = express();
 
 app.use(express.json());
+app.use(ex)
 
 app.use(cors());
 
@@ -18,6 +20,12 @@ const welcomeMessage = {
 //We will start with one message in the array.
 //Note: messages will be lost when Glitch restarts our server.
 const messages = [welcomeMessage];
+
+
+app.get("/", function (request, response) {
+  response.sendFile(__dirname + "/index.html");
+  response.json(messages);
+});
 
 app.post("/message", function (request, response) {
 const pushedMessage = request.body;
@@ -44,10 +52,7 @@ const messageIndex = messages.findIndex((element)=>{
   respond.send("Ready");
 });
 
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + "/index.html");
-  response.json(messages);
-});
+
 
 //allow client read text 
 app.get("/message/search", (request, response) => {
